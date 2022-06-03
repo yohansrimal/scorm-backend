@@ -116,17 +116,17 @@ application.get("/player", (req, res) => {
   const indexPath = req.query.path;
   console.log(indexPath);
 
-  request(
-    "http://www.sewanaholdings.com/scorm/player/index.html",
-    function (error, response, body) {
-      if (!error) {
-        html = _eval(body, "indexPath")(indexPath);
-        res.send(html);
-      } else {
-        console.log(error);
-      }
-    }
-  );
+  // request(
+  //   "http://www.sewanaholdings.com/scorm/player/index.html",
+  //   function (error, response, body) {
+  //     if (!error) {
+  //       html = _eval(body, "indexPath")(indexPath);
+  //       res.send(html);
+  //     } else {
+  //       console.log(error);
+  //     }
+  //   }
+  // );
 });
 
 application.listen(process.env.PORT || 5000, () => {
