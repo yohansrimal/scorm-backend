@@ -142,6 +142,7 @@ application.get("/player", (req, res) => {
   const indexPath = req.query.path;
   let html = readFileSync("player/index.html", { encoding: "utf-8" });
   html = _eval(html, "indexPath")(indexPath);
+  console.log(html);
   res.send(html);
 });
 
