@@ -95,7 +95,9 @@ function _eval(body, ...args) {
 
 application.get("/player", (req, res) => {
   const indexPath = req.query.path;
-  let html = readFileSync("player/index.html", { encoding: "utf-8" });
+  let html = readFileSync("scorm-repo/scorm_7438b679/index.html", {
+    encoding: "utf-8",
+  });
   html = _eval(html, "indexPath")(indexPath);
   console.log(html);
   res.send(html);
