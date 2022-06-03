@@ -93,49 +93,56 @@ function _eval(body, ...args) {
   return new Fn(args.toString(), "return " + body);
 }
 
+// application.get("/player", (req, res) => {
+//   // var options = {
+//   //   host: "www.sewanaholdings.com",
+//   //   port: 8080,
+//   //   path: "scorm/player/index.html",
+//   // };
+
+//   // http
+//   //   .get(options, function (res) {
+//   //     console.log("Got response: " + res.statusCode);
+//   //   })
+//   //   .on("error", function (e) {
+//   //     console.log("Got error: " + e.message);
+//   //   });
+
+//   // request.send(null);
+//   // request.onreadystatechange = function () {
+//   //   if (request.readyState == 4) alert(request.responseText);
+//   // };
+
+//   const indexPath = req.query.path;
+//   console.log(indexPath);
+
+//   // var html;
+//   // request(
+//   //   "http://www.sewanaholdings.com/scorm/player/index.html",
+//   //   function (error, response, body) {
+//   //     if (!error) {
+//   //       html = _eval(body, "indexPath")(indexPath);
+//   //     } else {
+//   //       console.log(error);
+//   //     }
+//   //   }
+//   // );
+
+//   // request(indexPath, function (error, response, body) {
+//   //   if (!error) {
+//   //     html2 = _eval(html, "indexPath")(indexPath);
+//   //     res.send(html2);
+//   //   } else {
+//   //     console.log(error);
+//   //   }
+//   // });
+// });
+
 application.get("/player", (req, res) => {
-  // var options = {
-  //   host: "www.sewanaholdings.com",
-  //   port: 8080,
-  //   path: "scorm/player/index.html",
-  // };
-
-  // http
-  //   .get(options, function (res) {
-  //     console.log("Got response: " + res.statusCode);
-  //   })
-  //   .on("error", function (e) {
-  //     console.log("Got error: " + e.message);
-  //   });
-
-  // request.send(null);
-  // request.onreadystatechange = function () {
-  //   if (request.readyState == 4) alert(request.responseText);
-  // };
-
   const indexPath = req.query.path;
-  console.log(indexPath);
-
-  var html;
-  request(
-    "http://www.sewanaholdings.com/scorm/player/index.html",
-    function (error, response, body) {
-      if (!error) {
-        html = _eval(body, "indexPath")(indexPath);
-      } else {
-        console.log(error);
-      }
-    }
-  );
-
-  request(indexPath, function (error, response, body) {
-    if (!error) {
-      html2 = _eval(html, "indexPath")(indexPath);
-      res.send(html2);
-    } else {
-      console.log(error);
-    }
-  });
+  let html = readFileSync("player/index.html", { encoding: "utf-8" });
+  html = _eval(html, "indexPath")(indexPath);
+  res.send(html);
 });
 
 application.listen(process.env.PORT || 5000, () => {
